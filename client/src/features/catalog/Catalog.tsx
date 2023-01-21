@@ -9,7 +9,8 @@ export default function Catalog() {
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
-        agent.Catalog.list().then(products => setProducts(products))
+        agent.Catalog.list()
+        .then(products => setProducts(products))
         .catch(error => console.log(error))
         .finally(() => setLoading(false))
     }, [])
