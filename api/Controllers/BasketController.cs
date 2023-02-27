@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.DTOs;
 using api.Entities;
+using api.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,17 +27,17 @@ namespace api.Controllers
         [HttpGet(Name = "GetBasket")]
         public async Task<ActionResult<BasketDTO>> GetBasket()
         {
-            var basket = await RetrieveBasket();
+            var basket = await RetrieveBasket(GetBuyerId());
 
             if (basket == null) return NotFound();
-            return MapBasketToDto(basket);
+            return basket.MapBasketToDto();
         }
 
         [HttpPost]
         public async Task<ActionResult<BasketDTO>> AddItemToBasket(int productID, int quantity)
         {
             // get basket || create basket
-            var basket = await RetrieveBasket();
+            var basket = await RetrieveBasket(GetBuyerId());
             if (basket == null) basket = CreateBasket();
 
             // get product
@@ -48,7 +49,7 @@ namespace api.Controllers
             var result = await _context.SaveChangesAsync() > 0;
 
             // save changes
-            if (result) return CreatedAtRoute("GetBasket", MapBasketToDto(basket));
+            if (result) return CreatedAtRoute("GetBasket", basket.MapBasketToDto());
 
             return BadRequest(new ProblemDetails{Title = "Problem saving item to basket"});
         }
@@ -57,7 +58,7 @@ namespace api.Controllers
         public async Task<ActionResult> RemoveBasketItem(int productID, int quantity)
         {
             // get basket
-            var basket = await RetrieveBasket();
+            var basket = await RetrieveBasket(GetBuyerId());
 
             if (basket == null) return NotFound();
 
@@ -70,41 +71,37 @@ namespace api.Controllers
             return BadRequest(new ProblemDetails{Title = "Problem deleting item from basket"});
         }
 
-        private async Task<Basket> RetrieveBasket()
+        private async Task<Basket> RetrieveBasket(string buyerID)
         {
+            if (string.IsNullOrEmpty(buyerID))
+            {
+                Response.Cookies.Delete("buyerID");
+                return null;
+            }
             return await _context.Baskets
                 .Include(i => i.Items)
                 .ThenInclude(p => p.Product)
-                .FirstOrDefaultAsync(x => x.BuyerID == Request.Cookies["buyerID"]);
+                .FirstOrDefaultAsync(x => x.BuyerID == buyerID);
+        }
+
+        private string GetBuyerId()
+        {
+            return User.Identity?.Name ?? Request.Cookies["buyerID"];
         }
 
         private Basket CreateBasket()
         {
-            var buyerID = Guid.NewGuid().ToString();
-            var cookieOptions = new CookieOptions{IsEssential = true, Expires = DateTime.Now.AddDays(30)};
-            Response.Cookies.Append("buyerID", buyerID, cookieOptions);
+            var buyerID = User.Identity?.Name;
+            if (string.IsNullOrEmpty(buyerID))
+            {
+                buyerID = Guid.NewGuid().ToString();
+                var cookieOptions = new CookieOptions{IsEssential = true, Expires = DateTime.Now.AddDays(30)};
+                Response.Cookies.Append("buyerID", buyerID, cookieOptions);
+            }
+            
             var basket = new Basket{BuyerID = buyerID};
             _context.Baskets.Add(basket);
             return basket;
-        }
-
-        private BasketDTO MapBasketToDto(Basket basket)
-        {
-            return new BasketDTO
-            {
-                ID = basket.ID,
-                BuyerID = basket.BuyerID,
-                Items = basket.Items.Select(item => new BasketItemDto
-                {
-                    ProductID = item.ProductID,
-                    Name = item.Product.Name,
-                    Price = item.Product.Price,
-                    PictureURL = item.Product.PictureURL,
-                    Type = item.Product.Type,
-                    Brand = item.Product.Brand,
-                    Quantity = item.Quantity
-                }).ToList()
-            };
         }
     }
 }
