@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Soroush\\Desktop\\ReStore\\api\\api.csproj": {}
+    "C:\\Users\\Soroush\\Desktop\\ReStore\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Soroush\\Desktop\\ReStore\\api\\api.csproj": {
+    "C:\\Users\\Soroush\\Desktop\\ReStore\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Soroush\\Desktop\\ReStore\\api\\api.csproj",
-        "projectName": "api",
-        "projectPath": "C:\\Users\\Soroush\\Desktop\\ReStore\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\Soroush\\Desktop\\ReStore\\API\\API.csproj",
+        "projectName": "API",
+        "projectPath": "C:\\Users\\Soroush\\Desktop\\ReStore\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Soroush\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Soroush\\Desktop\\ReStore\\api\\obj\\",
+        "outputPath": "C:\\Users\\Soroush\\Desktop\\ReStore\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Soroush\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Soroush\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

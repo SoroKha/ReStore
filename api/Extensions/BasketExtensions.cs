@@ -1,23 +1,22 @@
-using System.Linq;
-using api.DTOs;
-using api.Entities;
+using API.DTOs;
+using API.Entities;
 
-namespace api.Extensions
+namespace API.Extensions
 {
     public static class BasketExtensions
     {
-        public static BasketDTO MapBasketToDto(this Basket basket)
+        public static BasketDto MapBasketToDto(this Basket basket)
         {
-            return new BasketDTO
+            return new BasketDto
             {
-                ID = basket.ID,
-                BuyerID = basket.BuyerID,
+                Id = basket.Id,
+                BuyerId = basket.BuyerId,
                 Items = basket.Items.Select(item => new BasketItemDto
                 {
-                    ProductID = item.ProductID,
+                    ProductId = item.ProductId,
                     Name = item.Product.Name,
                     Price = item.Product.Price,
-                    PictureURL = item.Product.PictureURL,
+                    PictureUrl = item.Product.PictureUrl,
                     Type = item.Product.Type,
                     Brand = item.Product.Brand,
                     Quantity = item.Quantity

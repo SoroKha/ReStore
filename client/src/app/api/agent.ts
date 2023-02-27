@@ -1,10 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
-import { history } from "../..";
 import { PaginatedResponse } from "../models/pagination";
+import { router } from "../router/Routes";
 import { store } from "../store/configureStore";
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
 axios.defaults.baseURL = 'http://localhost:5000/api/';
 axios.defaults.withCredentials = true;
@@ -26,7 +26,7 @@ axios.interceptors.response.use(async response => {
     }
     return response
 }, (error: AxiosError) => {
-    const {data, status} = error.response as any;
+    const {data, status} = error.response as AxiosResponse;
     switch (status) {
         case 400:
             if (data.errors) {
@@ -44,15 +44,12 @@ axios.interceptors.response.use(async response => {
             toast.error(data.title);
             break;
         case 500:
-            history.push({
-                pathname: 'server-error',
-                state: {error: data},
-            });
-            toast.error(data.title);
+            router.navigate('/server-error', {state: {error: data}});
             break;
         default:
             break;
     }
+
     return Promise.reject(error.response);
 })
 
@@ -60,13 +57,13 @@ const requests = {
     get: (url: string, params?: URLSearchParams) => axios.get(url, {params}).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
-    delete: (url: string) => axios.delete(url).then(responseBody),
+    del: (url: string) => axios.delete(url).then(responseBody)
 }
 
 const Catalog = {
     list: (params: URLSearchParams) => requests.get('products', params),
     details: (id: number) => requests.get(`products/${id}`),
-    fetchFIlters: () => requests.get('products/filters')
+    fetchFilters: () => requests.get('products/filters')
 }
 
 const TestErrors = {
@@ -74,21 +71,19 @@ const TestErrors = {
     get401Error: () => requests.get('buggy/unauthorised'),
     get404Error: () => requests.get('buggy/not-found'),
     get500Error: () => requests.get('buggy/server-error'),
-    getValidationError: () => requests.get('buggy/validation-error'),
+    getValidationError: () => requests.get('buggy/validation-error')
 }
 
 const Basket = {
     get: () => requests.get('basket'),
-    addItem: (productID: number, quantity = 1) =>
-    requests.post(`basket?productID=${productID}&quantity=${quantity}`, {}),
-    removeItem: (productID: number, quantity = 1) =>
-    requests.delete(`basket?productID=${productID}&quantity=${quantity}`)
+    addItem: (productId: number, quantity = 1) => requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
+    removeItem: (productId: number, quantity = 1) => requests.del(`basket?productId=${productId}&quantity=${quantity}`)
 }
 
 const Account = {
     login: (values: any) => requests.post('account/login', values),
     register: (values: any) => requests.post('account/register', values),
-    currentUser: () => requests.get('account/currentUser'),
+    currentUser: () => requests.get('account/currentUser')
 }
 
 const agent = {

@@ -1,4 +1,4 @@
-namespace api.DTOs
+namespace API.DTOs
 {
     public class LoginDto
     {

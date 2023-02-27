@@ -1,8 +1,8 @@
 export interface BasketItem {
-    productID: number;
+    productId: number;
     name: string;
     price: number;
-    pictureURL: string;
+    pictureUrl: string;
     brand: string;
     type: string;
     quantity: number;
@@ -10,6 +10,6 @@ export interface BasketItem {
 
 export interface Basket {
     id: number;
-    buyerID: string;
+    buyerId: string;
     items: BasketItem[];
 }
