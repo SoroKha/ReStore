@@ -6,7 +6,7 @@ import { store } from "../store/configureStore";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = 'http://localhost:5000/api/';
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -18,7 +18,7 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(async response => {
-    if (process.env.NODE_ENV === 'development') await sleep();
+    await sleep();
     const pagination = response.headers['pagination'];
     if (pagination) {
         response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
@@ -42,9 +42,6 @@ axios.interceptors.response.use(async response => {
             break;
         case 401:
             toast.error(data.title);
-            break;
-        case 403: 
-            toast.error('You are not allowed to do that!');
             break;
         case 500:
             router.navigate('/server-error', {state: {error: data}});

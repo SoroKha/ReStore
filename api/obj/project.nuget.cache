@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xY0c01/wTWg1aMjqIjcLuSwjSf/QlI4hf+Xvi3ONP2VrJx7nha522PRiMSurfgQCQyQgGtt9fX/7aoRn4wUh4w==",
+  "dgSpecHash": "vuLlMmZxvg3IH5lvS8Bm1A7JzUmtQT2v8damgNVmGWUkRnEeQEAYmZpHGPeJjiwtSyMe/GAMz9eLCBP1pXyntw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Soroush\\Desktop\\ReStore\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -39,8 +39,6 @@
     "C:\\Users\\Soroush\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.15.1\\microsoft.identitymodel.tokens.6.15.1.nupkg.sha512",
     "C:\\Users\\Soroush\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\Soroush\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
-    "C:\\Users\\Soroush\\.nuget\\packages\\npgsql\\7.0.1\\npgsql.7.0.1.nupkg.sha512",
-    "C:\\Users\\Soroush\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.1\\npgsql.entityframeworkcore.postgresql.7.0.1.nupkg.sha512",
     "C:\\Users\\Soroush\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.2\\sqlitepclraw.bundle_e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\Soroush\\.nuget\\packages\\sqlitepclraw.core\\2.1.2\\sqlitepclraw.core.2.1.2.nupkg.sha512",
     "C:\\Users\\Soroush\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.2\\sqlitepclraw.lib.e_sqlite3.2.1.2.nupkg.sha512",

@@ -66,10 +66,6 @@ export default function ProductDetails() {
                                 <TableCell>{product.type}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell>Brand</TableCell>
-                                <TableCell>{product.brand}</TableCell>
-                            </TableRow>
-                            <TableRow>
                                 <TableCell>Quantity in stock</TableCell>
                                 <TableCell>{product.quantityInStock}</TableCell>
                             </TableRow>

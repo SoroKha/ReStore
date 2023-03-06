@@ -43,13 +43,7 @@ export default function Catalog() {
                         onChange={(e) => dispatch(setProductParams({ orderBy: e.target.value }))}
                     />
                 </Paper>
-                <Paper sx={{ p: 2, mb: 2 }}>
-                    <CheckboxButtons
-                        items={brands}
-                        checked={productParams.brands}
-                        onChange={(checkedItems: string[]) => dispatch(setProductParams({ brands: checkedItems }))}
-                    />
-                </Paper>
+
                 <Paper sx={{ p: 2 }}>
                     <CheckboxButtons
                         items={types}
@@ -62,7 +56,7 @@ export default function Catalog() {
                 <ProductList products={products} />
             </Grid>
             <Grid item xs={3} />
-            <Grid item xs={9} sx={{mb: 2}}>
+            <Grid item xs={9} sx={{mb: 2, mt: 2}}>
                 {metaData &&
                 <AppPagination 
                     metaData={metaData} 
